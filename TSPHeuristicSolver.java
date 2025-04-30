@@ -78,8 +78,7 @@ public class TSPHeuristicSolver {
         //setup simulated annealing route
         double temperature = 1000; //beginning temperature
         double rateOfCooling = 0.01; //rate of cooling
-        int hillClimbCutoff = 2; //switch to hill climbing when 2 iterations left
-
+        int hillClimbCutoff = (int)(iterations * 0.85); //switch to hill climbing when 85% of iterations complete
         for (int i = 0; i < iterations; i++) {
             ArrayList<Integer> newTour = smallChange(currentTour); //generate a new tour with a slight mutation (2 cities swapped)
             double newFitness = calculateFitness(newTour, matrix); //calculate fitness of new tour

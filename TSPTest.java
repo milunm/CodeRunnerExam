@@ -11,7 +11,7 @@ public class TSPTest {
             {7, 3, 5, 6, 0}
         };
 
-        ArrayList<Integer> result = TSPHeuristicSolver.solveTSP(n, matrix, 1000);
+        ArrayList<Integer> result = TSPHeuristicSolver.solveTSP(n, matrix, 750);
 
         System.out.println("Best Tour Found: " + result);
         System.out.println("Tour Distance: " + TSPHeuristicSolver.calculateFitness(result, matrix));
