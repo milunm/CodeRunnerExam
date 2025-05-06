@@ -25,6 +25,8 @@ public class TSPHeuristicSolver {
 
     // Q2
     public static ArrayList<Integer> generateInitialTour(int cities) { //return a random tour as an ArrayList of type Integer, when taking in the total number of cities
+        if (cities <= 0) return null; //handle 0 or negative input 
+        if (cities > 1000000) return null; //handle overly large input
         ArrayList<Integer> randomTour = new ArrayList<>(); //empty list to store the tour
         for (int cityIndex = 0; cityIndex < cities; cityIndex++) randomTour.add(cityIndex); //for loop, add each city index to the list
         Collections.shuffle(randomTour); //randomize the order of the tour

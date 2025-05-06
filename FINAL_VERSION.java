@@ -35,22 +35,25 @@ public class FINAL_VERSION {
 
     // Q3
     public static int isValidTour(ArrayList<Integer> tour, double[][] matrix) {
-        if (tour == null || matrix == null || tour.size() != matrix.length) return 0; //check for null values and if the tour length matches the number of cities
-
+        if (tour == null) return 0; //check for null tour value
+        if (matrix == null) return 0; //check for null matrix value
+        if (tour.size() != matrix.length) return 0; //check  if the tour length matches matrix size
+     
         Set<Integer> checkDuplicate = new HashSet<>(tour); //detect any duplicate cities (this set variable only stores unique cities)
-        if (checkDuplicate.size() != matrix.length) return 0; //if cities are repeated or missing, tour is invalid
+        if (checkDuplicate.size() != matrix.length) return 0; //if cities are repeated tour is invalid
 
         return 1; //if all checks passed, tour is valid 
     }
 
     // Q4
     public static double calculateFitness(ArrayList<Integer> tour, double[][] matrix) {
-        if (tour == null || matrix == null || tour.size() != matrix.length){ 
-            return Double.MAX_VALUE; //return a large number if invalid, indicates bad fitness
-         } //validation for invalid tour or matrix inputs
+        if (tour == null) return Double.MAX_VALUE; //check for null tour value
+        if (matrix == null) return Double.MAX_VALUE; //check for null matrix value
+        if (tour.size() != matrix.length) return Double.MAX_VALUE; //check  if the tour length matches matrix size
 
         double tourDistance = 0; //variable to store total tour distance
         int tourSize = tour.size(); //get total size of tour
+        if (tourSize < 2) return 0; //if the tour is less than 2, return 0 (no distance to calculate)
         for (int i = 0; i < tourSize - 1; i++) { //loop through each city within the tour
             tourDistance += matrix[tour.get(i)][tour.get(i + 1)]; //add distance from current city to next city in the tour
         }
@@ -60,6 +63,8 @@ public class FINAL_VERSION {
 
     // Q5
     public static ArrayList<Integer> smallChange(ArrayList<Integer> tour) {
+        if (tour == null) return null; //check for null tour value
+        if (tour.size() < 2) return tour; //check for tour size less than 2 (no swap possible)
         ArrayList<Integer> newTour = new ArrayList<>(tour); //create copy so the original input isnt modified
         int firstIndex = (int)(Math.random() * newTour.size());
         int secondIndex = (int)(Math.random() * newTour.size()); // pick 2 random index within the tour (type INT insures its a whole number)
@@ -73,7 +78,10 @@ public class FINAL_VERSION {
 
     //Q6: SIMULATED ANNEALING
     public static ArrayList<Integer> solveTSP_SA(int numCities, double[][] matrix, int iterations){
-        if (numCities <= 1 || isValidMatrix(matrix) == 0 || iterations < 1) return null; //validation before proceeding 
+        if (numCities <= 1) return null;// handle invaild amount of cities
+        if (iterations < 1) return null; //handle too small amount of iterations
+        if (isValidMatrix(matrix) == 0 || matrix == null) return null; //handle invalid matrix input
+        
         //simulated annealing approach
         ArrayList<Integer> currentTour = generateInitialTour(numCities); //generate a random valid tour to start
         double currentFitness = calculateFitness(currentTour, matrix); //calculate fitness (total distance) of initial tour
