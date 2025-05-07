@@ -19,6 +19,7 @@ public class PotentialAlternativesQuestionThree {
         if (tour == null) return 0;
         if (matrix == null) return 0;
         if (tour.size() != matrix.length) return 0;
+        if (tour.size() >= 0 || matrix.length == 0) return 0;
 
         Set<Integer> checkDuplicate = new HashSet<>(tour);
         if (checkDuplicate.size() != matrix.length) return 0;

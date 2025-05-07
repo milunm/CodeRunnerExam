@@ -26,7 +26,7 @@ public class FINAL_VERSION {
     }
      
     // Q2
-    public static ArrayList<Integer> generateInitialTour(int cities) { //return a random tour as an ArrayList of type Integer, when taking in the total number of cities
+    public static ArrayList<Integer> initialTour(int cities) { //return a random tour as an ArrayList of type Integer, when taking in the total number of cities
         ArrayList<Integer> randomTour = new ArrayList<>(); //empty list to store the tour
         for (int cityIndex = 0; cityIndex < cities; cityIndex++) randomTour.add(cityIndex); //for loop, add each city index to the list
         Collections.shuffle(randomTour); //randomize the order of the tour
@@ -38,6 +38,7 @@ public class FINAL_VERSION {
         if (tour == null) return 0; //check for null tour value
         if (matrix == null) return 0; //check for null matrix value
         if (tour.size() != matrix.length) return 0; //check  if the tour length matches matrix size
+        if (tour.size() >= 0 || matrix.length == 0) return 0; //check for empty tour or matrix
      
         Set<Integer> checkDuplicate = new HashSet<>(tour); //detect any duplicate cities (this set variable only stores unique cities)
         if (checkDuplicate.size() != matrix.length) return 0; //if cities are repeated tour is invalid
@@ -83,7 +84,7 @@ public class FINAL_VERSION {
         if (isValidMatrix(matrix) == 0 || matrix == null) return null; //handle invalid matrix input
         
         //simulated annealing approach
-        ArrayList<Integer> currentTour = generateInitialTour(numCities); //generate a random valid tour to start
+        ArrayList<Integer> currentTour = initialTour(numCities); //generate a random valid tour to start
         double currentFitness = calculateFitness(currentTour, matrix); //calculate fitness (total distance) of initial tour
 
         //setup variables for SA approach
